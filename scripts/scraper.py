@@ -6,6 +6,14 @@ def Scrape(url):
     soup = BeautifulSoup(response.content, 'html.parser')
     return soup
 
-soup = Scrape('https://www.example.com')
+soup = Scrape('https://www.bbc.com/')
 
-print(soup.select_one('p').text)
+body = soup.find("article")
+
+paragraphs = [
+    p.get_text(strip=True)
+    for p in body.find_all("p", attrs={"data-compnent": "text-block"})
+]
+
+for i in paragraphs:
+    print(i)
